@@ -11,21 +11,48 @@
   </head>
   <body>
     <div id="game-grid">
-      <div class="box" id="box-1">-</div>
-      <div class="box" id="box-2">-</div>
-      <div class="box" id="box-3">-</div>
-      <div class="box" id="box-4">-</div>
-      <div class="box" id="box-5">-</div>
-      <div class="box" id="box-6">-</div>
-      <div class="box" id="box-7">-</div>
-      <div class="box" id="box-8">-</div>
-      <div class="box" id="box-9">-</div>
+      <div class="box" id="box-1" data-row="1" data-col="1">-</div>
+      <div class="box" id="box-2" data-row="1" data-col="2">-</div>
+      <div class="box" id="box-3" data-row="1" data-col="3">-</div>
+      <div class="box" id="box-4" data-row="2" data-col="1">-</div>
+      <div class="box" id="box-5" data-row="2" data-col="2">-</div>
+      <div class="box" id="box-6" data-row="2" data-col="3">-</div>
+      <div class="box" id="box-7" data-row="3" data-col="1">-</div>
+      <div class="box" id="box-8" data-row="3" data-col="2">-</div>
+      <div class="box" id="box-9" data-row="3" data-col="3">-</div>
+    </div>
+    <div>
+      <p>Turn: Player <span id="current-player"></span></p>
     </div>
     <script src="/src/tictactoe.js"></script>
     <script>
       console.log("connected");
       const game = new TicTacToe();
-      console.log(game);
+      const divList = document.querySelectorAll("#game-grid > div");
+      const currentPlayer = document.getElementById("current-player");
+      currentPlayer.innerHTML = game.currentPlayer;
+
+      divList.forEach((div) => {
+        div.addEventListener("click", () => {
+          let row = parseInt(div.dataset.row);
+          let col = parseInt(div.dataset.col);
+
+          console.log("clicked", row - 1, col - 1);
+          console.log(div.innerHTML);
+          div.innerHTML = game.currentPlayer;
+
+          game.takeATurn(row, col);
+
+          if (game.gameWon) {
+            console.log("GAME WON");
+          } else {
+            game.changePlayer();
+            currentPlayer.innerHTML = game.currentPlayer;
+          }
+
+          console.log(game);
+        });
+      });
     </script>
   </body>
 </html>

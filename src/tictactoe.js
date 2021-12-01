@@ -54,15 +54,16 @@
       // return false if nothing matches
       return false;
     }
-
-    takeATurn(row, col) {
-      this.game[row - 1][col - 1] = this.currentPlayer;
-
+    changePlayer() {
       if (this.currentPlayer === "x") {
         this.currentPlayer = "o";
       } else {
         this.currentPlayer = "x";
       }
+    }
+
+    takeATurn(row, col) {
+      this.game[row - 1][col - 1] = this.currentPlayer;
     }
   }
 
